@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "danotes-b2bb6": {
+      "hosting": {
+        "appnotes": [
+          "danotes-b2bb6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "danotes-b2bb6"
+  }
+}
