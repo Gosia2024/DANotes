@@ -20,7 +20,7 @@ export class NoteListComponent {
   status: "notes" | "trash" = "notes";
 
   constructor(private noteService: NoteListService) {
-    this.noteList = this.getDummyData()
+    this.noteList = this.getDummyData();
 
   }
 
@@ -40,7 +40,6 @@ export class NoteListComponent {
       this.favFilter = "all";
     }
   }
-
 
 
 

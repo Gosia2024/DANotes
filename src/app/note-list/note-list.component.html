@@ -1,6 +1,6 @@
 <div class="notes_wrapper">
     <div class="notes_list_button_wrapper">
-        <div>
+       <!-----------<div>
             <button (click)="changeFavFilter('all')" [disabled]="status == 'trash'" class="btn light_btn"
                 [ngClass]="{'btn_active': favFilter == 'all'}">
                 @if (favFilter == 'all') {
@@ -132,7 +132,7 @@
             </button>
         </div>
     </div>
-    <div>
+    <div>----------->
 <!-----
         <ul>
             @for (item of (this.noteService.items$ | async); track item) {
@@ -147,11 +147,8 @@
             <app-note [note]="note"></app-note>
     }--->
 
-    <div class="notes_wrapper">
-   <div class="notes_list_button_wrapper">
-   </div>
-   <div>
+  </div>
+  <div>
     <app-note *ngFor="let note of getList()" [note]="note"></app-note>
-   </div>
-
+  </div>
 </div>
