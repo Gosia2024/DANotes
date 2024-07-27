@@ -9,48 +9,65 @@ import {Observable} from 'rxjs';
 export class NoteListService {
 
   trashNotes: Note[] = [];
-  normaleNotes: Note[] = [];
+  normalNotes: Note[] = [];
 
-  items$;
-  items;
+  //items$;
+  //items;
 
-unsubList;
-unsubSingle;
+unsubTrash;
+unsubNotes;
+//unsubSingle;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
 
-    this.unsubList = onSnapshot(this.getNotesRef(), (list) => {
-      list.forEach(element => {
-        console.log(element.data());
-      });
-    });
+    this.unsubNotes = this.subTrashList();
+    this.unsubTrash = this.subTrashList();
 
- this.unsubSingle = onSnapshot(this.getSingleDocRef("notes", "a66sdfdfffff"), (element) => {
+ //this.unsubSingle = onSnapshot(this.getSingleDocRef("notes", "a66sdfdfffff"), (element) => {
 
- });
+  }
 
- this.unsubSingle();
+ //this.unsubSingle();
  
 
 
 
- this.items$ = collectionData(this.getNotesRef());
- this.items = this.items$.subscribe( (list) => {
-  list.forEach(element => {
-    console.log(element);
-  });
- })
+ //this.items$ = collectionData(this.getNotesRef());
+ //this.items = this.items$.subscribe( (list) => {
+ // list.forEach(element => {
+  //  console.log(element);
+ // });
+// })
 
-}
+//}
 
 
 ngonDestroy(){
-  this.unsubList();
-  this.items.unsubscribe();
+  this.unsubNotes();
+  this.unsubTrash();
+  //this.items.unsubscribe();
 }
 
+
+subTrashList(){
+  return onSnapshot(this.getTrashRef(), (list) => {
+    this.trashNotes = [];
+    list.forEach(element => {
+      this.trashNotes.push(this.setNoteObject(element.data(), element.id));
+    });
+  });
+}
+
+subNotesList(){
+  return onSnapshot(this.getNotesRef(), (list) => {
+    this.normalNotes = [];
+    list.forEach(element => {
+      this.normalNotes.push(this.setNoteObject(element.data(), element.id));
+    });
+  });
+}
 setNoteObject(obj: any, id: string): Note {
   return{
     id: id || "",
@@ -58,7 +75,7 @@ setNoteObject(obj: any, id: string): Note {
     title: obj.title || "",
     content: obj.content || "",
     marked: obj.marked || false,
-    
+
   }
 }
 
