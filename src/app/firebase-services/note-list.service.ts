@@ -23,7 +23,7 @@ unsubSingle;
 
     this.unsubList = onSnapshot(this.getNotesRef(), (list) => {
       list.forEach(element => {
-        console.log(element);
+        console.log(element.data());
       });
     });
 
@@ -32,7 +32,7 @@ unsubSingle;
  });
 
  this.unsubSingle();
- this.unsubList();
+ 
 
 
 
@@ -42,8 +42,26 @@ unsubSingle;
     console.log(element);
   });
  })
- this.items.unsubscribe();
+
 }
+
+
+ngonDestroy(){
+  this.unsubList();
+  this.items.unsubscribe();
+}
+
+setNoteObject(obj: any, id: string): Note {
+  return{
+    id: id || "",
+    type: obj.type || "note",
+    title: obj.title || "",
+    content: obj.content || "",
+    marked: obj.marked || false,
+    
+  }
+}
+
 
  getNotesRef(){
    return collection(this.firestore, 'notes');
